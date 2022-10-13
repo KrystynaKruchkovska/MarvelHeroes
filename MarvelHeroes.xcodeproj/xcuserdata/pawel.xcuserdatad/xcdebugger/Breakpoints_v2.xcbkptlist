@@ -30,8 +30,8 @@
             filePath = "MarvelHeroes/Scenes/HeroCollectionViewCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
             landmarkName = "provide(_:)"
             landmarkType = "7">
          </BreakpointContent>

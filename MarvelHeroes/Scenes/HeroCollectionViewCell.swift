@@ -51,6 +51,7 @@ final class HeroCollectionViewCell: UICollectionViewCell, Providable {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = Layout.cornerRadius
+        imageView.backgroundColor = .yellow
         return imageView
     }()
     
@@ -58,8 +59,10 @@ final class HeroCollectionViewCell: UICollectionViewCell, Providable {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium, width: .condensed)
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
+        label.backgroundColor = .green
         return label
     }()
     
@@ -68,7 +71,7 @@ final class HeroCollectionViewCell: UICollectionViewCell, Providable {
             heroImageView.topAnchor.constraint(equalTo: contentStackView.topAnchor),
             heroImageView.leadingAnchor.constraint(equalTo: contentStackView.leadingAnchor),
             heroImageView.trailingAnchor.constraint(equalTo: contentStackView.trailingAnchor),
-            heroImageView.heightAnchor.constraint(equalToConstant: Layout.characterImageHeight),
+            heroImageView.heightAnchor.constraint(equalTo: contentStackView.heightAnchor, multiplier: 0.8),
             heroImageView.widthAnchor.constraint(equalToConstant: Layout.characterImageWidth),
         ])
     }
