@@ -85,3 +85,15 @@ struct DefaultHeroesService {
         networkManager.publisher(for: request)
     }
 }
+
+extension DefaultHeroesService.Response.Result: Hashable {
+    
+    func hash(into hasher: inout Hasher) {
+      // 2
+        hasher.combine(id)
+    }
+    
+    static func == (lhs: DefaultHeroesService.Response.Result, rhs: DefaultHeroesService.Response.Result) -> Bool {
+        lhs.id == rhs.id
+    }
+}

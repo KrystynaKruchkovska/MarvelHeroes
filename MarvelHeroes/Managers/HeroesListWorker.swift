@@ -21,12 +21,20 @@ final class HeroesListWorker {
 }
 
 extension HeroesListWorker {
-    func fetchHeroes() {
-        service.download()
-            .sink { [weak self] status in
-                self?.logger.info("Status recived: \(String(describing: status))")
-            } receiveValue: { heroes in
-                print("WE HAVE \(heroes.data.results.count)")
-            }.store(in: &disposalBag)
+    func fetchHeroes() -> Future<DefaultHeroesService.Response, Error> {
+        Future { [weak self] promise in
+            self?.service.download()
+                .sink { [weak self] status in
+            
+                    if case let .failure(error) = status {
+                        promise(.failure(error))
+                    }
+                    self?.logger.info("Status recived: \(String(describing: status))")
+                } receiveValue: { heroes in
+                    promise(.success(heroes))
+                    print("WE HAVE \(heroes.data.results.count)")
+                }.store(in: &self!.disposalBag)
+        }
+
     }
 }

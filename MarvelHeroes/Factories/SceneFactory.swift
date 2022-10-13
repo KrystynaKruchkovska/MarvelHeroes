@@ -23,12 +23,7 @@ final class MarvelHeroesSceneFactory: SceneFactory {
         let vc = MarvelHeroesViewController()
         return configurator.configured(vc) as! T
     }
-    
-        
-//    func makeScene<UIViewController>() -> MarvelHeroesViewController {
-//        let vc = MarvelHeroesViewController()
-//        return configurator.configured(vc)
-//    }
+
 }
 
 
