@@ -36,8 +36,7 @@ class MarvelHeroesViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        configureCollectionView()
+        configureView()
         tryToFetchHeroes()
     }
     
@@ -46,11 +45,16 @@ class MarvelHeroesViewController: UIViewController {
         layout.itemSize = Layout.estimatedCollectionViewItemSize
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .clear
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(HeroCollectionViewCell.self, forCellWithReuseIdentifier: HeroCollectionViewCell.identifier)
         return collectionView
     }()
     
+    private func configureView() {
+        self.navigationController?.navigationBar.topItem?.title = "Marvel"
+        configureCollectionView()
+    }
     private func configureCollectionView() {
         view.addSubview(collectionView)
         setupConstraints()
@@ -63,7 +67,7 @@ class MarvelHeroesViewController: UIViewController {
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
@@ -94,7 +98,6 @@ extension MarvelHeroesViewController: MarvelHeroesViewControllerInput {
             guard let self =  self else {
                 return
             }
-//            self.alert.show(on: self, message: message, acceptanceCompletion: nil)
             self.collectionView.backgroundView = self.emptyCollectionLabel
         }
     }
@@ -103,9 +106,3 @@ extension MarvelHeroesViewController: MarvelHeroesViewControllerInput {
         collectionViewModel.add(results)
     }
 }
-
-//extension MarvelHeroesViewController: HeroCollectionViewCellDelegate {
-//    func fetchImage(for url: URL) {
-//        <#code#>
-//    }
-//}

@@ -25,6 +25,8 @@
 		E553DF9C28F8588100C06683 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E553DF9B28F8588100C06683 /* Alert.swift */; };
 		E553DF9E28F9466A00C06683 /* DownloadImageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E553DF9D28F9466A00C06683 /* DownloadImageWorker.swift */; };
 		E553DFA028F94F3A00C06683 /* ImageCacheWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E553DF9F28F94F3A00C06683 /* ImageCacheWorker.swift */; };
+		E553DFA228F973A900C06683 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E553DFA128F973A900C06683 /* ImageDownloader.swift */; };
+		E553DFA528F97E1E00C06683 /* NavigationBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E553DFA428F97E1E00C06683 /* NavigationBar+Extension.swift */; };
 		E5E22F8428F72D720088C2B6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E22F8328F72D720088C2B6 /* AppDelegate.swift */; };
 		E5E22F8628F72D720088C2B6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E22F8528F72D720088C2B6 /* SceneDelegate.swift */; };
 		E5E22F8828F72D720088C2B6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E22F8728F72D720088C2B6 /* ViewController.swift */; };
@@ -52,6 +54,8 @@
 		E553DF9B28F8588100C06683 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		E553DF9D28F9466A00C06683 /* DownloadImageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadImageWorker.swift; sourceTree = "<group>"; };
 		E553DF9F28F94F3A00C06683 /* ImageCacheWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheWorker.swift; sourceTree = "<group>"; };
+		E553DFA128F973A900C06683 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
+		E553DFA428F97E1E00C06683 /* NavigationBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationBar+Extension.swift"; sourceTree = "<group>"; };
 		E5E22F8028F72D720088C2B6 /* MarvelHeroes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarvelHeroes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5E22F8328F72D720088C2B6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5E22F8528F72D720088C2B6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -84,8 +88,6 @@
 				E553DF9028F7F6E700C06683 /* HeroCollectionViewCell.swift */,
 				E553DF9728F813A900C06683 /* MarvelCollectionViewModel.swift */,
 				E553DF8928F72FAF00C06683 /* HeroesListWorker.swift */,
-				E553DF9D28F9466A00C06683 /* DownloadImageWorker.swift */,
-				E553DF9F28F94F3A00C06683 /* ImageCacheWorker.swift */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -104,6 +106,9 @@
 			children = (
 				E553DF8728F72FAF00C06683 /* NetworkManager.swift */,
 				E553DF8828F72FAF00C06683 /* NetworkSession.swift */,
+				E553DFA128F973A900C06683 /* ImageDownloader.swift */,
+				E553DF9D28F9466A00C06683 /* DownloadImageWorker.swift */,
+				E553DF9F28F94F3A00C06683 /* ImageCacheWorker.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -119,11 +124,20 @@
 		E553DF9428F8123D00C06683 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				E553DFA328F97E0B00C06683 /* Extensions */,
 				E553DF9528F8124800C06683 /* Binding.swift */,
 				E553DF9228F802C300C06683 /* CollectionViewModel.swift */,
 				E553DF9B28F8588100C06683 /* Alert.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		E553DFA328F97E0B00C06683 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E553DFA428F97E1E00C06683 /* NavigationBar+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		E5E22F7728F72D720088C2B6 = {
@@ -238,6 +252,7 @@
 				E553DF7C28F72F7700C06683 /* MarvelHeroesConfigurator.swift in Sources */,
 				E553DF8528F72F9B00C06683 /* DefaultHeroesService.swift in Sources */,
 				E553DF9C28F8588100C06683 /* Alert.swift in Sources */,
+				E553DFA228F973A900C06683 /* ImageDownloader.swift in Sources */,
 				E553DFA028F94F3A00C06683 /* ImageCacheWorker.swift in Sources */,
 				E553DF8A28F72FAF00C06683 /* NetworkManager.swift in Sources */,
 				E553DF8028F72F7700C06683 /* MarvelHeroesPresenter.swift in Sources */,
@@ -245,6 +260,7 @@
 				E553DF9328F802C300C06683 /* CollectionViewModel.swift in Sources */,
 				E553DF7D28F72F7700C06683 /* MarvelHeroesViewController.swift in Sources */,
 				E553DF8C28F72FAF00C06683 /* HeroesListWorker.swift in Sources */,
+				E553DFA528F97E1E00C06683 /* NavigationBar+Extension.swift in Sources */,
 				E553DF8F28F72FB900C06683 /* SceneFactory.swift in Sources */,
 				E553DF9628F8124800C06683 /* Binding.swift in Sources */,
 				E553DF9128F7F6E700C06683 /* HeroCollectionViewCell.swift in Sources */,

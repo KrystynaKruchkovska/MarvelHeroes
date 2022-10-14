@@ -8,7 +8,11 @@
 import UIKit
 import Combine
 
-class DownloadImageWorker {
+protocol DownloadImageProtocol {
+    func load(url: URL) -> Future<UIImage, Error>
+}
+
+class DownloadImageWorker: DownloadImageProtocol {
     private var disposalBag = Set<AnyCancellable>()
     
     func load(url: URL) -> Future<UIImage, Error> {
@@ -19,6 +23,7 @@ class DownloadImageWorker {
                 .replaceNil(with: UIImage())
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { status in
+                    print("STATUS \(url)")
                     if case let .failure(error) = status {
                         promise(.failure(error))
                     }

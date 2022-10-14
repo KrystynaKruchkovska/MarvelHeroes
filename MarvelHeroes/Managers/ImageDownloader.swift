@@ -1,38 +1,17 @@
 //
-//  MarvelHeroesInteractor.swift
+//  ImageDownloader.swift
 //  MarvelHeroes
 //
-//  Created by Paweł on 12/10/2022.
+//  Created by Paweł on 14/10/2022.
 //
 
-import Foundation
-import Combine
-import os.log
 import UIKit
+import Combine
 
-class MarvelHeroesInteractor {
-    
-    var presenter: MarvelHeroesPresenter?
-    var heroesListWorker: HeroesListWorker?
+class ImageDownloaderManager {
     var imageCacheWorker: ImageCache?
     var downloadImageWorker: DownloadImageWorker?
-    
     private var disposalBag = Set<AnyCancellable>()
-
-    
-    func getHeroes() {
-        heroesListWorker?.fetchHeroes()
-            .sink(receiveCompletion: {
-                status in
-                if case let .failure(error) = status {
-                    self.presenter?.showFetchedHeroesFailure(message: error.localizedDescription)
-                }
-                print("STATTUS: \(status)")
-            }, receiveValue: { [weak self] response in
-                self?.presenter?.showFetchedHeroes(results: response.data.results)
-            })
-            .store(in: &disposalBag)
-    }
     
     func downloadImage(for url: URL) -> Future<UIImage, Never> {
         Future { promise in

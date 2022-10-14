@@ -37,6 +37,7 @@ struct DefaultHeroesService {
             
             enum Extension: String, Codable {
                 case jpg = "jpg"
+                case gif = "gif"
                 case other =  "png"
                 
                 init(from decoder: Decoder) throws {

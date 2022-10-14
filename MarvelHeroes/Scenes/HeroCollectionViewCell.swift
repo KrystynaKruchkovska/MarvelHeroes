@@ -13,15 +13,10 @@ protocol Providable {
     func provide(_ item: ProvidedItem)
 }
 
-
 final class HeroCollectionViewCell: UICollectionViewCell, Providable {
     
     typealias ProvidedItem = DefaultHeroesService.Response.Result
-    
-    //    weak var viewController: MarvelHeroesViewController?
-    
-    // TODO : DELETE IT
-    let interactor = MarvelHeroesInteractor()
+    private let imageDownloader: ImageDownloaderManager?
     private var bag = Set<AnyCancellable>()
     static var identifier: String {
         return self.description()
@@ -34,11 +29,15 @@ final class HeroCollectionViewCell: UICollectionViewCell, Providable {
     }
     
     override init(frame: CGRect) {
+        imageDownloader = ImageDownloaderManager()
         super.init(frame: frame)
+        
         contentStackView.frame = self.bounds
-        interactor.imageCacheWorker = ImageCacheWorker()
-        interactor.downloadImageWorker = DownloadImageWorker()
+        imageDownloader?.imageCacheWorker = ImageCacheWorker()
+        imageDownloader?.downloadImageWorker = DownloadImageWorker()
+        heroImageView.addSubview(progressIndicator)
         addSubview(contentStackView)
+        progressIndicator.startAnimating()
     }
     
     required init?(coder: NSCoder) {
@@ -50,10 +49,15 @@ final class HeroCollectionViewCell: UICollectionViewCell, Providable {
         setupConstraints()
     }
     
+    override func prepareForReuse() {
+        heroImageView.image = nil
+    }
+    
     private lazy var contentStackView: UIStackView = {
         var stackView = UIStackView(arrangedSubviews: [heroImageView, heroNameLabel])
         stackView.axis = .vertical
         stackView.layer.cornerRadius = Layout.cornerRadius
+        stackView.clipsToBounds = true
         return stackView
     }()
     
@@ -64,6 +68,13 @@ final class HeroCollectionViewCell: UICollectionViewCell, Providable {
         imageView.layer.cornerRadius = Layout.cornerRadius
         imageView.backgroundColor = .yellow
         return imageView
+    }()
+    
+    private var progressIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.color = .purple
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
     }()
     
     private var heroNameLabel: UILabel = {
@@ -81,7 +92,9 @@ final class HeroCollectionViewCell: UICollectionViewCell, Providable {
             heroImageView.topAnchor.constraint(equalTo: contentStackView.topAnchor),
             heroImageView.leadingAnchor.constraint(equalTo: contentStackView.leadingAnchor),
             heroImageView.trailingAnchor.constraint(equalTo: contentStackView.trailingAnchor),
-            heroImageView.heightAnchor.constraint(equalTo: contentStackView.heightAnchor, multiplier: 0.8)
+            heroImageView.heightAnchor.constraint(equalTo: contentStackView.heightAnchor, multiplier: 0.8),
+            progressIndicator.centerXAnchor.constraint(equalTo: heroImageView.centerXAnchor),
+            progressIndicator.centerYAnchor.constraint(equalTo: heroImageView.centerYAnchor)
         ])
     }
     
@@ -91,21 +104,20 @@ final class HeroCollectionViewCell: UICollectionViewCell, Providable {
         heroNameLabel.text = item.name
     }
     
-    func fetchImage(strUrl: String) {
-        
+    private func fetchImage(strUrl: String) {
         guard var comps = URLComponents(string: strUrl) else {
             return
         }
         comps.scheme = "https"
-     
         guard let url = comps.url else {
             return
         }
-        interactor.downloadImage(for: url)
+        
+        imageDownloader?.downloadImage(for: url)
             .sink { image in
+                self.progressIndicator.stopAnimating()
                 self.heroImageView.image = image
             }.store(in: &bag)
-        
     }
 }
 
