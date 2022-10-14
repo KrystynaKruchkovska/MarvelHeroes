@@ -10,6 +10,7 @@ import Combine
 
 protocol NetworkSession {
     func publisher(for request: URLRequest) -> AnyPublisher<Data, Error>
+    
 }
 
 class DefaultNetworkSession: NetworkSession {
@@ -18,7 +19,6 @@ class DefaultNetworkSession: NetworkSession {
             .dataTaskPublisher(for: request)
             .retry(2)
             .tryMap { (data, response) -> Data in
-                print("DATA: \(data)")
                 guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
                     throw NetworkError.responseError
                 }

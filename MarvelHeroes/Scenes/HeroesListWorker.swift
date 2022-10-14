@@ -25,16 +25,13 @@ extension HeroesListWorker {
         Future { [weak self] promise in
             self?.service.download()
                 .sink { [weak self] status in
-            
                     if case let .failure(error) = status {
                         promise(.failure(error))
                     }
                     self?.logger.info("Status recived: \(String(describing: status))")
                 } receiveValue: { heroes in
                     promise(.success(heroes))
-                    print("WE HAVE \(heroes.data.results.count)")
                 }.store(in: &self!.disposalBag)
         }
-
     }
 }

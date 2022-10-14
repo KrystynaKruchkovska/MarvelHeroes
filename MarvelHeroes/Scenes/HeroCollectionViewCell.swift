@@ -6,15 +6,23 @@
 //
 
 import UIKit
+import Combine
 
 protocol Providable {
     associatedtype ProvidedItem: Hashable
     func provide(_ item: ProvidedItem)
 }
 
+
 final class HeroCollectionViewCell: UICollectionViewCell, Providable {
     
     typealias ProvidedItem = DefaultHeroesService.Response.Result
+    
+    //    weak var viewController: MarvelHeroesViewController?
+    
+    // TODO : DELETE IT
+    let interactor = MarvelHeroesInteractor()
+    private var bag = Set<AnyCancellable>()
     static var identifier: String {
         return self.description()
     }
@@ -28,6 +36,8 @@ final class HeroCollectionViewCell: UICollectionViewCell, Providable {
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentStackView.frame = self.bounds
+        interactor.imageCacheWorker = ImageCacheWorker()
+        interactor.downloadImageWorker = DownloadImageWorker()
         addSubview(contentStackView)
     }
     
@@ -43,13 +53,14 @@ final class HeroCollectionViewCell: UICollectionViewCell, Providable {
     private lazy var contentStackView: UIStackView = {
         var stackView = UIStackView(arrangedSubviews: [heroImageView, heroNameLabel])
         stackView.axis = .vertical
+        stackView.layer.cornerRadius = Layout.cornerRadius
         return stackView
     }()
     
     private var heroImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleToFill
         imageView.layer.cornerRadius = Layout.cornerRadius
         imageView.backgroundColor = .yellow
         return imageView
@@ -57,7 +68,6 @@ final class HeroCollectionViewCell: UICollectionViewCell, Providable {
     
     private var heroNameLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 12, weight: .medium, width: .condensed)
         label.lineBreakMode = .byWordWrapping
@@ -71,17 +81,32 @@ final class HeroCollectionViewCell: UICollectionViewCell, Providable {
             heroImageView.topAnchor.constraint(equalTo: contentStackView.topAnchor),
             heroImageView.leadingAnchor.constraint(equalTo: contentStackView.leadingAnchor),
             heroImageView.trailingAnchor.constraint(equalTo: contentStackView.trailingAnchor),
-            heroImageView.heightAnchor.constraint(equalTo: contentStackView.heightAnchor, multiplier: 0.8),
-            heroImageView.widthAnchor.constraint(equalToConstant: Layout.characterImageWidth),
+            heroImageView.heightAnchor.constraint(equalTo: contentStackView.heightAnchor, multiplier: 0.8)
         ])
     }
     
     func provide(_ item: ProvidedItem) {
-        heroImageView.image = fetchImage(strUrl: "item.thumbnail.path")
+        fetchImage(strUrl:item.thumbnail.path + "." +
+                   item.thumbnail.thumbnailExtension.rawValue)
         heroNameLabel.text = item.name
     }
     
-    func fetchImage(strUrl: String) -> UIImage? {
-        return UIImage(named: "square.and.arrow.up.fill")
+    func fetchImage(strUrl: String) {
+        
+        guard var comps = URLComponents(string: strUrl) else {
+            return
+        }
+        comps.scheme = "https"
+     
+        guard let url = comps.url else {
+            return
+        }
+        interactor.downloadImage(for: url)
+            .sink { image in
+                self.heroImageView.image = image
+            }.store(in: &bag)
+        
     }
 }
+
+

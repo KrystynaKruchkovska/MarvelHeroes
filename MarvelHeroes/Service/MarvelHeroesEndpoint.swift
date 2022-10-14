@@ -8,7 +8,6 @@
 import Foundation
 
 protocol Endpoint {
-    
     var scheme: String { get }
     var baseUrl: String { get }
     var path: String { get }
@@ -40,7 +39,6 @@ enum MarvelHeroesEndpoint: Endpoint {
             URLQueryItem(name: "limit", value: "100"),
             URLQueryItem(name: "offset", value: "0"),
         ]
-
     }
     
     var method: String {

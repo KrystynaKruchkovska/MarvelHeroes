@@ -35,6 +35,8 @@ final class MarvelHeroesConfigurator: SceneConfigurator {
         
         interactor.presenter = presenter
         interactor.heroesListWorker = HeroesListWorker(service: service)
+        interactor.imageCacheWorker = ImageCacheWorker()
+        interactor.downloadImageWorker = DownloadImageWorker()
         
         vc.interactor = interactor
         vc.router = router

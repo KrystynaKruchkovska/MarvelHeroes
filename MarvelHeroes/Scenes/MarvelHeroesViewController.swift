@@ -7,13 +7,27 @@
 
 import UIKit
 
+
+protocol MarvelHeroesViewControllerInput: AnyObject {
+    func showFetchedHeroes(_ results: [DefaultHeroesService.Response.Result])
+    func showFetchedHeroesFailure(message: String)
+}
+
+protocol MarvelHeroesViewControllerOutput: AnyObject {
+    func tryToFetchHeroes()
+}
+
 class MarvelHeroesViewController: UIViewController {
 
     var interactor: MarvelHeroesInteractor?
     var router: MarvelHeroesRouter?
-    lazy var collectionViewModel: MarvelColllectionViewModel = MarvelColllectionViewModel(collectionView: collectionView, cellReuseIdentifier: HeroCollectionViewCell.identifier)
+    private lazy var collectionViewModel: MarvelColllectionViewModel = MarvelColllectionViewModel(collectionView: collectionView, cellReuseIdentifier: HeroCollectionViewCell.identifier, parentVC: self)
+    
+    private var alert: InfoAlert
+    private let emptyCollectionLabel = makeDefaultLabel()
     
     init() {
+        self.alert = DefaultInfoAlert()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -24,8 +38,7 @@ class MarvelHeroesViewController: UIViewController {
         super.viewDidLoad()
         
         configureCollectionView()
-        interactor?.getHeroes()
-        view.backgroundColor = .red
+        tryToFetchHeroes()
     }
     
     private lazy var collectionView: UICollectionView = {
@@ -43,6 +56,7 @@ class MarvelHeroesViewController: UIViewController {
         setupConstraints()
         collectionView.dataSource = collectionViewModel.makeDataSource()
         collectionView.delegate = collectionViewModel
+        emptyCollectionLabel.text = "Not possible to load data"
     }
     
     private func setupConstraints() {
@@ -53,11 +67,45 @@ class MarvelHeroesViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
+    
+    private static func makeDefaultLabel() -> UILabel {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }
 }
 
 extension MarvelHeroesViewController {
-    
     private enum Layout {
         static let estimatedCollectionViewItemSize = CGSize(width: 120, height: 200)
     }
 }
+extension MarvelHeroesViewController: MarvelHeroesViewControllerOutput {
+    func tryToFetchHeroes() {
+        interactor?.getHeroes()
+    }
+}
+
+extension MarvelHeroesViewController: MarvelHeroesViewControllerInput {
+    func showFetchedHeroesFailure(message: String) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self =  self else {
+                return
+            }
+//            self.alert.show(on: self, message: message, acceptanceCompletion: nil)
+            self.collectionView.backgroundView = self.emptyCollectionLabel
+        }
+    }
+
+    func showFetchedHeroes(_ results: [DefaultHeroesService.Response.Result]) {
+        collectionViewModel.add(results)
+    }
+}
+
+//extension MarvelHeroesViewController: HeroCollectionViewCellDelegate {
+//    func fetchImage(for url: URL) {
+//        <#code#>
+//    }
+//}

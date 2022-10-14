@@ -14,7 +14,6 @@ protocol NetworkManager {
 }
 
 private extension NetworkManager {
-    
     var decoder : JSONDecoder {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601

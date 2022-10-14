@@ -11,7 +11,11 @@ class MarvelHeroesPresenter {
     
     weak var vc: MarvelHeroesViewController?
     
-    func presentHeroCollection(results: [DefaultHeroesService.Response.Result]) {
-        vc?.collectionViewModel.add(results)
+    func showFetchedHeroes(results: [DefaultHeroesService.Response.Result]) {
+        vc?.showFetchedHeroes(results)
+    }
+    
+    func showFetchedHeroesFailure(message: String) {
+        vc?.showFetchedHeroesFailure(message: message)
     }
 }

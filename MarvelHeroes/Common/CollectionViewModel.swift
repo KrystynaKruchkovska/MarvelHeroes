@@ -18,12 +18,14 @@ class CollectionViewModel<CellType: UICollectionViewCell & Providable>: NSObject
     private var dataSource: DataSource?
     private var cellIdentifier: String
     private weak var collectionView: UICollectionView?
+    weak var parentVC: UIViewController?
     
     public var items: Binding<[Item]> = .init([])
     
-    init(collectionView: UICollectionView, cellReuseIdentifier: String) {
+    init(collectionView: UICollectionView, cellReuseIdentifier: String, parentVC: UIViewController) {
         self.cellIdentifier = cellReuseIdentifier
         self.collectionView = collectionView
+        self.parentVC = parentVC
         super.init()
     }
 }
@@ -55,7 +57,6 @@ extension CollectionViewModel {
         items.forEach {
             self.items.value.append($0)
         }
-
         update()
     }
 
