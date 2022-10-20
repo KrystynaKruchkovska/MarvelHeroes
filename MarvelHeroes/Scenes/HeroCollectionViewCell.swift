@@ -2,7 +2,7 @@
 //  HeroCollectionViewCell.swift
 //  MarvelHeroes
 //
-//  Created by Paweł on 13/10/2022.
+//  Created by Krystyna Kruchkovska on 13/10/2022.
 //
 
 import UIKit
@@ -66,7 +66,6 @@ final class HeroCollectionViewCell: UICollectionViewCell, Providable {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleToFill
         imageView.layer.cornerRadius = Layout.cornerRadius
-        imageView.backgroundColor = .yellow
         return imageView
     }()
     
@@ -102,6 +101,10 @@ final class HeroCollectionViewCell: UICollectionViewCell, Providable {
         fetchImage(strUrl:item.thumbnail.path + "." +
                    item.thumbnail.thumbnailExtension.rawValue)
         heroNameLabel.text = item.name
+    }
+    
+    func animateActivityView() {
+        progressIndicator.startAnimating()
     }
     
     private func fetchImage(strUrl: String) {

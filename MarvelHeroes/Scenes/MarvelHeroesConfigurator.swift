@@ -2,7 +2,7 @@
 //  MarvelHeroesConfigurator.swift
 //  MarvelHeroes
 //
-//  Created by Paweł on 12/10/2022.
+//  Created by Krystyna Kruchkovska on 12/10/2022.
 //
 
 import UIKit
@@ -22,8 +22,7 @@ final class MarvelHeroesConfigurator: SceneConfigurator {
         
         let networkSession = DefaultNetworkSession()
         let networManager = DefaultNetworkManager(session: networkSession)
-        let service = DefaultHeroesService(networkManager: networManager,
-                                           endpoint: MarvelHeroesEndpoint.getSearchResult(numberOfItems: 1))
+        let service = DefaultHeroesService(networkManager: networManager)
         
         let interactor = MarvelHeroesInteractor()
         let presenter = MarvelHeroesPresenter()

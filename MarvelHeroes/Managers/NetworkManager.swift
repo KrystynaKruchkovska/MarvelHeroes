@@ -2,7 +2,7 @@
 //  NetworkManager.swift
 //  MarvelHeroes
 //
-//  Created by Paweł on 12/10/2022.
+//  Created by Krystyna Kruchkovska on 12/10/2022.
 //
 
 import Foundation
@@ -16,7 +16,6 @@ protocol NetworkManager {
 private extension NetworkManager {
     var decoder : JSONDecoder {
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
         return decoder
     }
     

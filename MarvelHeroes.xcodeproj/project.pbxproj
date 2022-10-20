@@ -27,6 +27,8 @@
 		E553DFA028F94F3A00C06683 /* ImageCacheWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E553DF9F28F94F3A00C06683 /* ImageCacheWorker.swift */; };
 		E553DFA228F973A900C06683 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E553DFA128F973A900C06683 /* ImageDownloader.swift */; };
 		E553DFA528F97E1E00C06683 /* NavigationBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E553DFA428F97E1E00C06683 /* NavigationBar+Extension.swift */; };
+		E5BB11042901C5B800C8C938 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB11032901C5B800C8C938 /* File.swift */; };
+		E5D0A08E2901A3AF00623FBA /* Extension+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D0A08D2901A3AF00623FBA /* Extension+Date.swift */; };
 		E5E22F8428F72D720088C2B6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E22F8328F72D720088C2B6 /* AppDelegate.swift */; };
 		E5E22F8628F72D720088C2B6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E22F8528F72D720088C2B6 /* SceneDelegate.swift */; };
 		E5E22F8828F72D720088C2B6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E22F8728F72D720088C2B6 /* ViewController.swift */; };
@@ -56,6 +58,8 @@
 		E553DF9F28F94F3A00C06683 /* ImageCacheWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheWorker.swift; sourceTree = "<group>"; };
 		E553DFA128F973A900C06683 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		E553DFA428F97E1E00C06683 /* NavigationBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationBar+Extension.swift"; sourceTree = "<group>"; };
+		E5BB11032901C5B800C8C938 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		E5D0A08D2901A3AF00623FBA /* Extension+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Date.swift"; sourceTree = "<group>"; };
 		E5E22F8028F72D720088C2B6 /* MarvelHeroes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarvelHeroes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5E22F8328F72D720088C2B6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E5E22F8528F72D720088C2B6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -136,6 +140,8 @@
 			isa = PBXGroup;
 			children = (
 				E553DFA428F97E1E00C06683 /* NavigationBar+Extension.swift */,
+				E5BB11032901C5B800C8C938 /* File.swift */,
+				E5D0A08D2901A3AF00623FBA /* Extension+Date.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -246,6 +252,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5BB11042901C5B800C8C938 /* File.swift in Sources */,
 				E5E22F8828F72D720088C2B6 /* ViewController.swift in Sources */,
 				E553DF9828F813A900C06683 /* MarvelCollectionViewModel.swift in Sources */,
 				E553DF7E28F72F7700C06683 /* MarvelHeroesRouter.swift in Sources */,
@@ -267,6 +274,7 @@
 				E5E22F8428F72D720088C2B6 /* AppDelegate.swift in Sources */,
 				E553DF8B28F72FAF00C06683 /* NetworkSession.swift in Sources */,
 				E553DF9E28F9466A00C06683 /* DownloadImageWorker.swift in Sources */,
+				E5D0A08E2901A3AF00623FBA /* Extension+Date.swift in Sources */,
 				E553DF7F28F72F7700C06683 /* MarvelHeroesInteractor.swift in Sources */,
 				E5E22F8628F72D720088C2B6 /* SceneDelegate.swift in Sources */,
 			);

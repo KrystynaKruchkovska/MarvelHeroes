@@ -2,7 +2,7 @@
 //  MarvelHeroesPresenter.swift
 //  MarvelHeroes
 //
-//  Created by Paweł on 12/10/2022.
+//  Created by Krystyna Kruchkovska on 12/10/2022.
 //
 
 import Foundation

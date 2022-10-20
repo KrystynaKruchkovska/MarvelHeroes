@@ -2,7 +2,7 @@
 //  DownloadImageWorker.swift
 //  MarvelHeroes
 //
-//  Created by Paweł on 14/10/2022.
+//  Created by Krystyna Kruchkovska on 14/10/2022.
 //
 
 import UIKit
@@ -23,7 +23,6 @@ class DownloadImageWorker: DownloadImageProtocol {
                 .replaceNil(with: UIImage())
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { status in
-                    print("STATUS \(url)")
                     if case let .failure(error) = status {
                         promise(.failure(error))
                     }

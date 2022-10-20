@@ -2,7 +2,7 @@
 //  SceneFactory.swift
 //  MarvelHeroes
 //
-//  Created by Paweł on 12/10/2022.
+//  Created by Krystyna Kruchkovska on 12/10/2022.
 //
 
 import UIKit
@@ -23,7 +23,6 @@ final class MarvelHeroesSceneFactory: SceneFactory {
         let vc = MarvelHeroesViewController()
         return configurator.configured(vc) as! T
     }
-
 }
 
 

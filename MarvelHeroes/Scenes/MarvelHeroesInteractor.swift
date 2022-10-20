@@ -2,7 +2,7 @@
 //  MarvelHeroesInteractor.swift
 //  MarvelHeroes
 //
-//  Created by Paweł on 12/10/2022.
+//  Created by Krystyna Kruchkovska on 12/10/2022.
 //
 
 import Foundation
@@ -18,18 +18,22 @@ class MarvelHeroesInteractor {
     var downloadImageWorker: DownloadImageWorker?
     
     private var disposalBag = Set<AnyCancellable>()
-
     
     func getHeroes() {
         heroesListWorker?.fetchHeroes()
-            .sink(receiveCompletion: {
-                status in
+            .sink(receiveCompletion: { status in
                 if case let .failure(error) = status {
                     self.presenter?.showFetchedHeroesFailure(message: error.localizedDescription)
                 }
-                print("STATTUS: \(status)")
-            }, receiveValue: { [weak self] response in
-                self?.presenter?.showFetchedHeroes(results: response.data.results)
+                
+            }, receiveValue: { [weak self] heroesResponse in
+                
+                let results = heroesResponse.data.results
+                if results.count < 1 {
+                    self?.presenter?.showFetchedHeroesFailure(message: CustomError.noDataToShow.description)
+                } else {
+                    self?.presenter?.showFetchedHeroes(results: heroesResponse.data.results)
+                }
             })
             .store(in: &disposalBag)
     }
@@ -47,6 +51,17 @@ class MarvelHeroesInteractor {
                 })
                 .store(in: &self.disposalBag)
             }
+        }
+    }
+}
+
+enum CustomError: String, Error {
+    case noDataToShow
+    
+    public var description: String {
+        switch self {
+        case .noDataToShow:
+            return "No data to show"
         }
     }
 }

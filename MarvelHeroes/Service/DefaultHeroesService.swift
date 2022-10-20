@@ -2,7 +2,7 @@
 //  DefaultHeroesService.swift
 //  MarvelHeroes
 //
-//  Created by Paweł on 12/10/2022.
+//  Created by Krystyna Kruchkovska on 12/10/2022.
 //
 
 import Foundation
@@ -20,10 +20,39 @@ struct DefaultHeroesService {
         struct Result: Decodable {
             let id: Int
             let name, description: String
-            let modified: Date
+            let modified: Date?
             let thumbnail: Thumbnail
             let resourceURI: String
             let comics, series: Comics
+            
+            enum CodingKeys: CodingKey {
+                case id
+                case name
+                case description
+                case modified
+                case thumbnail
+                case resourceURI
+                case comics
+                case series
+            }
+            
+            init(from decoder: Decoder) throws {
+                let container: KeyedDecodingContainer<DefaultHeroesService.Response.Result.CodingKeys> = try decoder.container(keyedBy: DefaultHeroesService.Response.Result.CodingKeys.self)
+                self.id = try container.decode(Int.self, forKey: DefaultHeroesService.Response.Result.CodingKeys.id)
+                self.name = try container.decode(String.self, forKey: DefaultHeroesService.Response.Result.CodingKeys.name)
+                self.description = try container.decode(String.self, forKey: DefaultHeroesService.Response.Result.CodingKeys.description)
+                
+                if let dateStr = try container.decodeIfPresent(String.self, forKey: DefaultHeroesService.Response.Result.CodingKeys.modified) {
+                    self.modified = dateStr.yyyyMMddFormatDate
+                } else {
+                    self.modified  = nil
+                }
+   
+                self.thumbnail = try container.decode(DefaultHeroesService.Response.Thumbnail.self, forKey: DefaultHeroesService.Response.Result.CodingKeys.thumbnail)
+                self.resourceURI = try container.decode(String.self, forKey: DefaultHeroesService.Response.Result.CodingKeys.resourceURI)
+                self.comics = try container.decode(DefaultHeroesService.Response.Comics.self, forKey: DefaultHeroesService.Response.Result.CodingKeys.comics)
+                self.series = try container.decode(DefaultHeroesService.Response.Comics.self, forKey: DefaultHeroesService.Response.Result.CodingKeys.series)
+            }
         }
         
         struct Thumbnail: Codable {
@@ -36,9 +65,9 @@ struct DefaultHeroesService {
             }
             
             enum Extension: String, Codable {
-                case jpg = "jpg"
-                case gif = "gif"
-                case other =  "png"
+                case jpg   = "jpg"
+                case gif   = "gif"
+                case other = "png"
                 
                 init(from decoder: Decoder) throws {
                     let label = try decoder.singleValueContainer().decode(String.self)
@@ -61,28 +90,12 @@ struct DefaultHeroesService {
     }
     
     private let networkManager: NetworkManager
-    private let endpoint: Endpoint
-    
-    init(networkManager: NetworkManager, endpoint: Endpoint) {
+
+    init(networkManager: NetworkManager) {
         self.networkManager = networkManager
-        self.endpoint = endpoint
     }
     
-    private var request: URLRequest {
-        
-        var componetns = URLComponents()
-        componetns.scheme = endpoint.scheme
-        componetns.host = endpoint.baseUrl
-        componetns.path = endpoint.path
-        componetns.queryItems = endpoint.parameters
-        
-        guard let url = componetns.url else {
-            fatalError("BAD URL\(componetns)")
-        }
-        return URLRequest(url: url)
-    }
-    
-    func download() -> AnyPublisher<Response, Error> {
+    func download(for request: URLRequest) -> AnyPublisher<Response, Error> {
         networkManager.publisher(for: request)
     }
 }
@@ -90,7 +103,6 @@ struct DefaultHeroesService {
 extension DefaultHeroesService.Response.Result: Hashable {
     
     func hash(into hasher: inout Hasher) {
-      // 2
         hasher.combine(id)
     }
     

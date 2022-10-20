@@ -2,7 +2,7 @@
 //  MarvelHeroesViewController.swift
 //  MarvelHeroes
 //
-//  Created by Paweł on 12/10/2022.
+//  Created by Krystyna Kruchkovska on 12/10/2022.
 //
 
 import UIKit
@@ -74,6 +74,7 @@ class MarvelHeroesViewController: UIViewController {
     
     private static func makeDefaultLabel() -> UILabel {
         let label = UILabel()
+        label.textColor = .white
         label.textAlignment = .center
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -98,7 +99,11 @@ extension MarvelHeroesViewController: MarvelHeroesViewControllerInput {
             guard let self =  self else {
                 return
             }
-            self.collectionView.backgroundView = self.emptyCollectionLabel
+            if self.collectionView.visibleCells.count > 0 {
+                self.alert.show(on: self,  message: message, acceptanceCompletion: nil)
+            } else {
+                self.collectionView.backgroundView = self.emptyCollectionLabel
+            }
         }
     }
 
