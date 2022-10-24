@@ -8,7 +8,13 @@
 import UIKit
 import Combine
 
-class ImageDownloaderManager {
+protocol ImageServiceProtocol {
+    var imageCacheWorker: ImageCache? { get set }
+    var downloadImageWorker: DownloadImageWorker? { get set }
+    func downloadImage(for url: URL) -> Future<UIImage, Never>
+}
+
+class ImageServiceWorker: ImageServiceProtocol {
     var imageCacheWorker: ImageCache?
     var downloadImageWorker: DownloadImageWorker?
     private var disposalBag = Set<AnyCancellable>()
@@ -20,12 +26,16 @@ class ImageDownloaderManager {
             } else {
                 self.downloadImageWorker?.load(url: url).sink(receiveCompletion: { status in
                     
-                }, receiveValue: { [weak self] image in
-                    self?.imageCacheWorker?.setImage(image, for: url)
+                }, receiveValue: { image in
+                    self.imageCacheWorker?.setImage(image, for: url)
                     promise(.success(image))
                 })
                 .store(in: &self.disposalBag)
             }
         }
+    }
+    
+    deinit {
+        print("Deinit")
     }
 }

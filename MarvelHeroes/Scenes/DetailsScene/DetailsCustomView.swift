@@ -9,7 +9,7 @@
 
 import UIKit
 
-class DetailsCustomView: UIView {
+final class DetailsCustomView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,7 +22,7 @@ class DetailsCustomView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    var heroImgView: UIImageView = {
+    private var heroImgView: UIImageView = {
         var imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +30,7 @@ class DetailsCustomView: UIView {
         return imageView
     }()
     
-    var descriptionLabel: UILabel = {
+    private var descriptionLabel: UILabel = {
         var label = UILabel()
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 12, weight: .medium, width: .condensed)
@@ -39,7 +39,7 @@ class DetailsCustomView: UIView {
         return label
     }()
     
-    lazy var stackView: UIStackView = {
+    private lazy var stackView: UIStackView = {
         var stackView = UIStackView(arrangedSubviews: [heroImgView, descriptionLabel])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.spacing = 10
@@ -62,8 +62,21 @@ class DetailsCustomView: UIView {
         ])
     }
     
-    func update(with hero: DefaultHeroesService.Response.Result) {
-        print(Thread.isMainThread)
-        descriptionLabel.text = hero.description
+    func update(with viewModel: DetailsCustomViewModel) {
+        descriptionLabel.text = viewModel.description
+        heroImgView.image = viewModel.heroImage
     }
+}
+
+
+class DetailsCustomViewModel {
+    let description: String
+    let heroImage: UIImage
+    
+    init(hero: DefaultHeroesService.Response.Result,
+         heroImg: UIImage) {
+        self.description = hero.description
+        self.heroImage = heroImg
+    }
+    
 }

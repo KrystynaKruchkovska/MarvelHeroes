@@ -19,10 +19,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let scene = (scene as? UIWindowScene) else { return }
         let sceneFactory = MarvelHeroesSceneFactory()
-        let window = UIWindow(windowScene: scene)
         sceneFactory.configurator = MarvelHeroesConfigurator(sceneFactory: sceneFactory)
+    
         let navigationController = UINavigationController(rootViewController: sceneFactory.makeScene())
         navigationController.navigationBar.setAppStyle()
+        
+        let window = UIWindow(windowScene: scene)
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
         self.window = window

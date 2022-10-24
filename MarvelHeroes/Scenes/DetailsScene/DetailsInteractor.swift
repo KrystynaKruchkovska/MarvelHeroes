@@ -8,16 +8,28 @@
 
 
 import Foundation
+import Combine
 
-class DetailsInteractor {
+final class DetailsInteractor {
     
     var presenter: DetailsPresenter?
-    var hero: DefaultHeroesService.Response.Result
+    var imageWorker: ImageServiceProtocol?
+
+    private var hero: DefaultHeroesService.Response.Result
+    private var disposalBag = Set<AnyCancellable>()
+
+    
     init(hero: DefaultHeroesService.Response.Result) {
         self.hero = hero
     }
     
     func fetchHerosDatails() {
-        presenter?.show(hero)
+        if let imageUrl = hero.getImageUrl() {
+            imageWorker?.downloadImage(for: imageUrl)
+                .receive(on: DispatchQueue.main)
+            .sink { image in
+                self.presenter?.show(self.hero, heroImage: image)
+            }.store(in: &disposalBag)
+        }
     }
 }

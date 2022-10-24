@@ -16,7 +16,7 @@ protocol Providable {
 final class HeroCollectionViewCell: UICollectionViewCell, Providable {
     
     typealias ProvidedItem = DefaultHeroesService.Response.Result
-    private let imageDownloader: ImageDownloaderManager?
+    private let imageDownloader: ImageServiceWorker?
     private var bag = Set<AnyCancellable>()
     static var identifier: String {
         return self.description()
@@ -29,7 +29,7 @@ final class HeroCollectionViewCell: UICollectionViewCell, Providable {
     }
     
     override init(frame: CGRect) {
-        imageDownloader = ImageDownloaderManager()
+        imageDownloader = ImageServiceWorker()
         super.init(frame: frame)
         
         contentStackView.frame = self.bounds
@@ -98,8 +98,7 @@ final class HeroCollectionViewCell: UICollectionViewCell, Providable {
     }
     
     func provide(_ item: ProvidedItem) {
-        fetchImage(strUrl:item.thumbnail.path + "." +
-                   item.thumbnail.thumbnailExtension.rawValue)
+        fetchImage(url: item.getImageUrl())
         heroNameLabel.text = item.name
     }
     
@@ -107,12 +106,8 @@ final class HeroCollectionViewCell: UICollectionViewCell, Providable {
         progressIndicator.startAnimating()
     }
     
-    private func fetchImage(strUrl: String) {
-        guard var comps = URLComponents(string: strUrl) else {
-            return
-        }
-        comps.scheme = "https"
-        guard let url = comps.url else {
+    private func fetchImage(url: URL?) {
+        guard let url = url else {
             return
         }
         

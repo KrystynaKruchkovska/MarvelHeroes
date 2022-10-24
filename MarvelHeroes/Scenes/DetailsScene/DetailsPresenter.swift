@@ -7,12 +7,12 @@
 //
 
 
-import Foundation
+import UIKit
 
 final class DetailsPresenter {
     weak var vc: DetailsViewController?
     
-    func show(_ hero: DefaultHeroesService.Response.Result) {
-        vc?.show(hero)
+    func show(_ hero: DefaultHeroesService.Response.Result, heroImage: UIImage) {
+        vc?.show(hero, heroImage: heroImage)
     }
 }

@@ -53,6 +53,19 @@ struct DefaultHeroesService {
                 self.comics = try container.decode(DefaultHeroesService.Response.Comics.self, forKey: DefaultHeroesService.Response.Result.CodingKeys.comics)
                 self.series = try container.decode(DefaultHeroesService.Response.Comics.self, forKey: DefaultHeroesService.Response.Result.CodingKeys.series)
             }
+            
+            func getImageUrl() -> URL? {
+                let imgUrl = self.thumbnail.path + "." +
+                self.thumbnail.thumbnailExtension.rawValue
+                guard var comps = URLComponents(string: imgUrl) else {
+                    return nil
+                }
+                comps.scheme = "https"
+                guard let url = comps.url else {
+                    return nil
+                }
+                return url
+            }
         }
         
         struct Thumbnail: Codable {

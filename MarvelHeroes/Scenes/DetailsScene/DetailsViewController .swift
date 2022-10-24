@@ -14,7 +14,7 @@ protocol DetailsViewControllerOutput: AnyObject {
 }
 
 protocol DetailsViewControllerIntput: AnyObject {
-    func show(_ hero: DefaultHeroesService.Response.Result)
+    func show(_ hero: DefaultHeroesService.Response.Result, heroImage: UIImage)
 }
 
 final class DetailsViewController : UIViewController {
@@ -44,9 +44,7 @@ extension DetailsViewController: DetailsViewControllerOutput {
 }
 
 extension DetailsViewController: DetailsViewControllerIntput {
-    func show(_ hero: DefaultHeroesService.Response.Result) {
-        customView.update(with: hero)
+    func show(_ hero: DefaultHeroesService.Response.Result, heroImage: UIImage) {
+        customView.update(with: DetailsCustomViewModel(hero: hero, heroImg: heroImage))
     }
-    
-    
 }

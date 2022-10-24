@@ -33,6 +33,8 @@ final class DetailsConfigurator: SceneConfigurator {
         router.source = vc
         
         interactor.presenter = presenter
+        interactor.imageWorker = dependencyProvider.imageServiceWorker
+        
         
         vc.interactor = interactor
         vc.router = router
