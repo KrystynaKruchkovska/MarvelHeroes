@@ -18,10 +18,12 @@ extension MarvelColllectionViewModel: UICollectionViewDelegate {
             return
         }
         
-        let cell = cell as! HeroCollectionViewCell
         if (indexPath.row == items.value.count - 80) {
             parentVC.interactor?.getHeroes()
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
     }
 }
