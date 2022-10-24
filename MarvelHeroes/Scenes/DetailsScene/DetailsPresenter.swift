@@ -8,3 +8,11 @@
 
 
 import Foundation
+
+final class DetailsPresenter {
+    weak var vc: DetailsViewController?
+    
+    func show(_ hero: DefaultHeroesService.Response.Result) {
+        vc?.show(hero)
+    }
+}

@@ -17,7 +17,7 @@ protocol MarvelHeroesViewControllerOutput: AnyObject {
     func tryToFetchHeroes()
 }
 
-class MarvelHeroesViewController: UIViewController {
+final class MarvelHeroesViewController: UIViewController {
 
     var interactor: MarvelHeroesInteractor?
     var router: MarvelHeroesRouter?

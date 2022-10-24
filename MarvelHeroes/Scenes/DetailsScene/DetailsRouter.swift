@@ -8,3 +8,13 @@
 
 
 import Foundation
+
+final class DetailsRouter {
+    private var sceneFactory: SceneFactory?
+    
+    weak var source: DetailsViewController?
+    
+    init(sceneFactory: SceneFactory?) {
+        self.sceneFactory = sceneFactory
+    }
+}

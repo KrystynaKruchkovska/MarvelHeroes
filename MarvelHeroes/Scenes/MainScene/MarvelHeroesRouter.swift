@@ -7,7 +7,11 @@
 
 import UIKit
 
-class MarvelHeroesRouter {
+protocol MainSceneRoutingLogic {
+    func showDetailsVC(with hero: DefaultHeroesService.Response.Result)
+}
+
+final class MarvelHeroesRouter {
     
     private var sceneFactory: SceneFactory?
     
@@ -17,3 +21,13 @@ class MarvelHeroesRouter {
         self.sceneFactory = sceneFactory
     }
 }
+extension MarvelHeroesRouter: MainSceneRoutingLogic {
+    func showDetailsVC(with hero: DefaultHeroesService.Response.Result) {
+        let detailsSceneFactory = DetailsSceneFactory()
+        detailsSceneFactory.configurator = DetailsConfigurator(sceneFactory: detailsSceneFactory, hero: hero)
+
+        let scene = detailsSceneFactory.makeScene()
+        source?.navigationController?.pushViewController(scene, animated: true)
+    }
+}
+
