@@ -34,8 +34,4 @@ class ImageServiceWorker: ImageServiceProtocol {
             }
         }
     }
-    
-    deinit {
-        print("Deinit")
-    }
 }

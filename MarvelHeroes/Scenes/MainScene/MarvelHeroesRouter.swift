@@ -8,7 +8,7 @@
 import UIKit
 
 protocol MainSceneRoutingLogic {
-    func showDetailsVC(with hero: DefaultHeroesService.Response.Result)
+    func showDetailsVC(with hero: DefaultHeroesService.Response.Character)
 }
 
 final class MarvelHeroesRouter {
@@ -22,7 +22,7 @@ final class MarvelHeroesRouter {
     }
 }
 extension MarvelHeroesRouter: MainSceneRoutingLogic {
-    func showDetailsVC(with hero: DefaultHeroesService.Response.Result) {
+    func showDetailsVC(with hero: DefaultHeroesService.Response.Character) {
         let detailsSceneFactory = DetailsSceneFactory()
         detailsSceneFactory.configurator = DetailsConfigurator(sceneFactory: detailsSceneFactory, hero: hero)
 

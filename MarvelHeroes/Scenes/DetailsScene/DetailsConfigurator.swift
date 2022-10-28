@@ -12,10 +12,10 @@ import UIKit
 final class DetailsConfigurator: SceneConfigurator {
     
     private weak var sceneFactory: SceneFactory?
-    private var hero: DefaultHeroesService.Response.Result
+    private var hero: DefaultHeroesService.Response.Character
     
     init(sceneFactory: SceneFactory,
-         hero: DefaultHeroesService.Response.Result) {
+         hero: DefaultHeroesService.Response.Character) {
         self.sceneFactory = sceneFactory
         self.hero = hero
     }
@@ -32,7 +32,12 @@ final class DetailsConfigurator: SceneConfigurator {
         presenter.vc = vc
         router.source = vc
         
+        let networkSession = DefaultNetworkSession()
+        let networManager = DefaultNetworkManager(session: networkSession)
+        let service = DefaultHeroesService(networkManager: networManager)
+
         interactor.presenter = presenter
+        interactor.heroDetailsWorker = HeroDetailsWorker(service: service)
         interactor.imageWorker = dependencyProvider.imageServiceWorker
         
         

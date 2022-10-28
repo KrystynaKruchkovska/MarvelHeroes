@@ -14,19 +14,13 @@ protocol NetworkManager {
 }
 
 private extension NetworkManager {
-    var decoder : JSONDecoder {
-        let decoder = JSONDecoder()
-        return decoder
-    }
-    
     func makePublisher<T: Decodable>(request: URLRequest) -> AnyPublisher<T, Error> {
         
         session.publisher(for: request)
-            .decode(type: T.self, decoder: decoder)
+            .decode(type: T.self, decoder: JSONDecoder())
             .eraseToAnyPublisher()
     }
 }
-
 
 struct DefaultNetworkManager: NetworkManager {
     private (set) var session: NetworkSession
@@ -35,7 +29,7 @@ struct DefaultNetworkManager: NetworkManager {
         self.session = session
     }
     
-    func publisher<T>(for request: URLRequest) -> AnyPublisher<T, Error> where T : Decodable {
+    func publisher<T: Decodable>(for request: URLRequest) -> AnyPublisher<T, Error> {
         makePublisher(request: request)
     }
 }

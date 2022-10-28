@@ -11,7 +11,7 @@ class MarvelHeroesPresenter {
     
     weak var vc: MarvelHeroesViewController?
     
-    func showFetchedHeroes(results: [DefaultHeroesService.Response.Result]) {
+    func showFetchedHeroes(results: [DefaultHeroesService.Response.Character]) {
         vc?.showFetchedHeroes(results)
     }
     

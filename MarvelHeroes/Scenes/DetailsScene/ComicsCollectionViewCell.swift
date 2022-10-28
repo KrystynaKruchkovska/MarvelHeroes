@@ -1,29 +1,19 @@
 //
-//  HeroCollectionViewCell.swift
+//  ComicsCollectionViewCell.swift
 //  MarvelHeroes
 //
-//  Created by Krystyna Kruchkovska on 13/10/2022.
+//  Created by Krystyna Kruchkovska on 26/10/2022.
+//  
 //
+
 
 import UIKit
 import Combine
 
-protocol Providable {
-    associatedtype ProvidedItem: Hashable
-    func provide(_ item: ProvidedItem)
-}
-
-enum DefaultCellLayout {
-    static var cornerRadius: CGFloat = 5
-    static let characterImageHeight: CGFloat = 200
-    static let characterImageWidth: CGFloat = 120
-    static let collectionViewItemSize:CGSize = CGSize(width: characterImageWidth, height: characterImageHeight)
-    static let edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-}
-
-final class HeroCollectionViewCell: UICollectionViewCell, Providable {
+final class ComicsCollectionViewCell: UICollectionViewCell, Providable {
     
-    typealias ProvidedItem = DefaultHeroesService.Response.Character
+    typealias ProvidedItem = DefaultHeroesService.Response.Comics
+    
     private let imageDownloader: ImageServiceWorker?
     private var bag = Set<AnyCancellable>()
     static var identifier: String {
@@ -101,7 +91,7 @@ final class HeroCollectionViewCell: UICollectionViewCell, Providable {
     
     func provide(_ item: ProvidedItem) {
         fetchImage(url: item.getImageUrl())
-        heroNameLabel.text = item.name
+        heroNameLabel.text = item.title
     }
     
     func animateActivityView() {
@@ -120,5 +110,3 @@ final class HeroCollectionViewCell: UICollectionViewCell, Providable {
             }.store(in: &bag)
     }
 }
-
-

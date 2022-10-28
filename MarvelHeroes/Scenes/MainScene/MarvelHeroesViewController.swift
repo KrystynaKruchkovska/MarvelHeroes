@@ -9,7 +9,7 @@ import UIKit
 
 
 protocol MarvelHeroesViewControllerInput: AnyObject {
-    func showFetchedHeroes(_ results: [DefaultHeroesService.Response.Result])
+    func showFetchedHeroes(_ results: [DefaultHeroesService.Response.Character])
     func showFetchedHeroesFailure(message: String)
 }
 
@@ -42,8 +42,8 @@ final class MarvelHeroesViewController: UIViewController {
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = Layout.estimatedCollectionViewItemSize
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        layout.itemSize = DefaultCellLayout.collectionViewItemSize
+        layout.sectionInset = DefaultCellLayout.edgeInsets
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -82,11 +82,6 @@ final class MarvelHeroesViewController: UIViewController {
     }
 }
 
-extension MarvelHeroesViewController {
-    private enum Layout {
-        static let estimatedCollectionViewItemSize = CGSize(width: 120, height: 200)
-    }
-}
 extension MarvelHeroesViewController: MarvelHeroesViewControllerOutput {
     func tryToFetchHeroes() {
         interactor?.getHeroes()
@@ -107,7 +102,7 @@ extension MarvelHeroesViewController: MarvelHeroesViewControllerInput {
         }
     }
 
-    func showFetchedHeroes(_ results: [DefaultHeroesService.Response.Result]) {
+    func showFetchedHeroes(_ results: [DefaultHeroesService.Response.Character]) {
         collectionViewModel.add(results)
     }
 }

@@ -183,17 +183,97 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A2D8FCF0-38E3-4393-8C05-15E6378BFC29"
+            uuid = "A3117E18-7ABF-4FA1-AD66-16EC3A48EF06"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MarvelHeroes/Scenes/DetailsScene/DetailsInteractor.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "fetchHerosDatails()"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "getComics(items:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B7F552F7-A867-4A25-8DB7-EE47A588E8DD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MarvelHeroes/Scenes/DetailsScene/DetailsInteractor.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "getComics(items:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "42FB640D-BF7B-4487-B5F1-D17C90841EBE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MarvelHeroes/Scenes/DetailsScene/DetailsViewController .swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "show(comicsData:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "43CCD5A4-F550-478B-9A7C-70DD40ED6F8C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MarvelHeroes/Scenes/DetailsScene/DetailsViewController .swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "show(comicsData:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "43CCD5A4-F550-478B-9A7C-70DD40ED6F8C - 7c275c457967e1ed"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Combine.Subscribers.Completion&lt;Swift.Error&gt;) -&gt; () in MarvelHeroes.DetailsViewController.show(comicsData: Swift.Array&lt;Combine.AnyPublisher&lt;MarvelHeroes.DefaultHeroesService.Response.ComicsData, Swift.Error&gt;&gt;) -&gt; ()"
+                  moduleName = "MarvelHeroes"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/pawel/Documents/Krysia/juniorChallenges/MarvelHeroes/MarvelHeroes/Scenes/DetailsScene/DetailsViewController%20.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "73"
+                  endingLineNumber = "73"
+                  offsetFromSymbolStart = "48">
+               </Location>
+               <Location
+                  uuid = "43CCD5A4-F550-478B-9A7C-70DD40ED6F8C - 7c275c457967e1ed"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Combine.Subscribers.Completion&lt;Swift.Error&gt;) -&gt; () in MarvelHeroes.DetailsViewController.show(comicsData: Swift.Array&lt;Combine.AnyPublisher&lt;MarvelHeroes.DefaultHeroesService.Response.ComicsData, Swift.Error&gt;&gt;) -&gt; ()"
+                  moduleName = "MarvelHeroes"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/pawel/Documents/Krysia/juniorChallenges/MarvelHeroes/MarvelHeroes/Scenes/DetailsScene/DetailsViewController%20.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "73"
+                  endingLineNumber = "73"
+                  offsetFromSymbolStart = "76">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -14,16 +14,16 @@ struct DefaultHeroesService {
         let data: ResponseData
         
         struct ResponseData: Decodable {
-            let results: [Result]
+            let results: [Character]
         }
         
-        struct Result: Decodable {
+        struct Character: Decodable {
             let id: Int
             let name, description: String
             let modified: Date?
             let thumbnail: Thumbnail
             let resourceURI: String
-            let comics, series: Comics
+            let comics, series: ComicsCollection
             
             enum CodingKeys: CodingKey {
                 case id
@@ -37,21 +37,21 @@ struct DefaultHeroesService {
             }
             
             init(from decoder: Decoder) throws {
-                let container: KeyedDecodingContainer<DefaultHeroesService.Response.Result.CodingKeys> = try decoder.container(keyedBy: DefaultHeroesService.Response.Result.CodingKeys.self)
-                self.id = try container.decode(Int.self, forKey: DefaultHeroesService.Response.Result.CodingKeys.id)
-                self.name = try container.decode(String.self, forKey: DefaultHeroesService.Response.Result.CodingKeys.name)
-                self.description = try container.decode(String.self, forKey: DefaultHeroesService.Response.Result.CodingKeys.description)
+                let container: KeyedDecodingContainer<DefaultHeroesService.Response.Character.CodingKeys> = try decoder.container(keyedBy: DefaultHeroesService.Response.Character.CodingKeys.self)
+                self.id = try container.decode(Int.self, forKey: DefaultHeroesService.Response.Character.CodingKeys.id)
+                self.name = try container.decode(String.self, forKey: DefaultHeroesService.Response.Character.CodingKeys.name)
+                self.description = try container.decode(String.self, forKey: DefaultHeroesService.Response.Character.CodingKeys.description)
                 
-                if let dateStr = try container.decodeIfPresent(String.self, forKey: DefaultHeroesService.Response.Result.CodingKeys.modified) {
+                if let dateStr = try container.decodeIfPresent(String.self, forKey: DefaultHeroesService.Response.Character.CodingKeys.modified) {
                     self.modified = dateStr.yyyyMMddFormatDate
                 } else {
                     self.modified  = nil
                 }
    
-                self.thumbnail = try container.decode(DefaultHeroesService.Response.Thumbnail.self, forKey: DefaultHeroesService.Response.Result.CodingKeys.thumbnail)
-                self.resourceURI = try container.decode(String.self, forKey: DefaultHeroesService.Response.Result.CodingKeys.resourceURI)
-                self.comics = try container.decode(DefaultHeroesService.Response.Comics.self, forKey: DefaultHeroesService.Response.Result.CodingKeys.comics)
-                self.series = try container.decode(DefaultHeroesService.Response.Comics.self, forKey: DefaultHeroesService.Response.Result.CodingKeys.series)
+                self.thumbnail = try container.decode(DefaultHeroesService.Response.Thumbnail.self, forKey: DefaultHeroesService.Response.Character.CodingKeys.thumbnail)
+                self.resourceURI = try container.decode(String.self, forKey: DefaultHeroesService.Response.Character.CodingKeys.resourceURI)
+                self.comics = try container.decode(DefaultHeroesService.Response.ComicsCollection.self, forKey: DefaultHeroesService.Response.Character.CodingKeys.comics)
+                self.series = try container.decode(DefaultHeroesService.Response.ComicsCollection.self, forKey: DefaultHeroesService.Response.Character.CodingKeys.series)
             }
             
             func getImageUrl() -> URL? {
@@ -89,7 +89,7 @@ struct DefaultHeroesService {
             }
         }
         
-        struct Comics: Codable {
+        struct ComicsCollection: Codable {
             let available: Int
             let collectionURI: String
             let items: [ComicsItem]
@@ -100,6 +100,68 @@ struct DefaultHeroesService {
             let resourceURI: String
             let name: String
         }
+        
+        struct ComicsData: Codable {
+            let data: ComicsResults
+           
+        }
+        
+        struct ComicsResults: Codable {
+            let results: [Comics]
+        }
+        // MARK: - Result
+        struct Comics: Codable {
+//            let id: Int
+            let title: String
+//            let issueNumber: Int
+//            let variantDescription, resultDescription: String
+//            let modified: Date
+//            let isbn, upc, diamondCode, ean: String
+//            let issn, format: String
+//            let pageCount: Int
+//            let textObjects: [TextObject]
+//            let resourceURI: String
+//            let urls: [URLElement]
+//            let series: Series
+//            let variants, collections, collectedIssues: [JSONAny]
+//            let dates: [DateElement]
+//            let prices: [Price]
+            let thumbnail: Thumbnail
+            let images: [Thumbnail]
+//            let creators: Creators
+//            let characters: Characters
+//            let stories: Stories
+//            let events: Characters
+            
+            enum CodingKeys: String, CodingKey {
+                case title, thumbnail, images
+                
+                
+            }
+            init(from decoder: Decoder) throws {
+                let container: KeyedDecodingContainer<DefaultHeroesService.Response.Comics.CodingKeys> = try decoder.container(keyedBy: DefaultHeroesService.Response.Comics.CodingKeys.self)
+//                self.id = try container.decode(Int.self, forKey: DefaultHeroesService.Response.Comics.CodingKeys.id)
+                self.title = try container.decode(String.self, forKey: DefaultHeroesService.Response.Comics.CodingKeys.title)
+//                self.variantDescription = try container.decode(String.self, forKey: DefaultHeroesService.Response.Comics.CodingKeys.variantDescription)
+//                self.resultDescription = try container.decode(String.self, forKey: DefaultHeroesService.Response.Comics.CodingKeys.resultDescription)
+                self.thumbnail = try container.decode(DefaultHeroesService.Response.Thumbnail.self, forKey: DefaultHeroesService.Response.Comics.CodingKeys.thumbnail)
+                self.images = try container.decode([DefaultHeroesService.Response.Thumbnail].self, forKey: DefaultHeroesService.Response.Comics.CodingKeys.images)
+            }
+            
+            func getImageUrl() -> URL? {
+                let imgUrl = self.thumbnail.path + "." +
+                self.thumbnail.thumbnailExtension.rawValue
+                guard var comps = URLComponents(string: imgUrl) else {
+                    return nil
+                }
+                comps.scheme = "https"
+                guard let url = comps.url else {
+                    return nil
+                }
+                return url
+            }
+
+        }
     }
     
     private let networkManager: NetworkManager
@@ -108,18 +170,28 @@ struct DefaultHeroesService {
         self.networkManager = networkManager
     }
     
-    func download(for request: URLRequest) -> AnyPublisher<Response, Error> {
+    func download<T: Decodable>(for request: URLRequest) -> AnyPublisher<T, Error> {
         networkManager.publisher(for: request)
     }
 }
 
-extension DefaultHeroesService.Response.Result: Hashable {
+extension DefaultHeroesService.Response.Character: Hashable {
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
     
-    static func == (lhs: DefaultHeroesService.Response.Result, rhs: DefaultHeroesService.Response.Result) -> Bool {
+    static func == (lhs: DefaultHeroesService.Response.Character, rhs: DefaultHeroesService.Response.Character) -> Bool {
         lhs.id == rhs.id
+    }
+}
+
+extension DefaultHeroesService.Response.Comics: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(title)
+    }
+    
+    static func == (lhs: DefaultHeroesService.Response.Comics, rhs: DefaultHeroesService.Response.Comics) -> Bool {
+        lhs.title == rhs.title
     }
 }
