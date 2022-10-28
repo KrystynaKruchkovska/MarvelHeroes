@@ -53,19 +53,6 @@ struct DefaultHeroesService {
                 self.comics = try container.decode(DefaultHeroesService.Response.ComicsCollection.self, forKey: DefaultHeroesService.Response.Character.CodingKeys.comics)
                 self.series = try container.decode(DefaultHeroesService.Response.ComicsCollection.self, forKey: DefaultHeroesService.Response.Character.CodingKeys.series)
             }
-            
-            func getImageUrl() -> URL? {
-                let imgUrl = self.thumbnail.path + "." +
-                self.thumbnail.thumbnailExtension.rawValue
-                guard var comps = URLComponents(string: imgUrl) else {
-                    return nil
-                }
-                comps.scheme = "https"
-                guard let url = comps.url else {
-                    return nil
-                }
-                return url
-            }
         }
         
         struct Thumbnail: Codable {
@@ -87,6 +74,20 @@ struct DefaultHeroesService {
                     self = Extension(rawValue: label) ?? Extension.other
                 }
             }
+            
+            func getImageUrl() -> URL? {
+                let imgUrl = self.path + "." +
+                self.thumbnailExtension.rawValue
+                guard var comps = URLComponents(string: imgUrl) else {
+                    return nil
+                }
+                comps.scheme = "https"
+                guard let url = comps.url else {
+                    return nil
+                }
+                return url
+            }
+
         }
         
         struct ComicsCollection: Codable {
@@ -147,20 +148,6 @@ struct DefaultHeroesService {
                 self.thumbnail = try container.decode(DefaultHeroesService.Response.Thumbnail.self, forKey: DefaultHeroesService.Response.Comics.CodingKeys.thumbnail)
                 self.images = try container.decode([DefaultHeroesService.Response.Thumbnail].self, forKey: DefaultHeroesService.Response.Comics.CodingKeys.images)
             }
-            
-            func getImageUrl() -> URL? {
-                let imgUrl = self.thumbnail.path + "." +
-                self.thumbnail.thumbnailExtension.rawValue
-                guard var comps = URLComponents(string: imgUrl) else {
-                    return nil
-                }
-                comps.scheme = "https"
-                guard let url = comps.url else {
-                    return nil
-                }
-                return url
-            }
-
         }
     }
     

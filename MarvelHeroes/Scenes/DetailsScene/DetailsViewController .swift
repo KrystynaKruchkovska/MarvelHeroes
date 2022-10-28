@@ -43,7 +43,6 @@ final class DetailsViewController : UIViewController {
         customView.comicsCollectionView.dataSource = collectionViewModel.makeDataSource()
         customView.comicsViewModel = collectionViewModel
     }
-    
 }
 
 extension DetailsViewController: DetailsViewControllerOutput {
@@ -60,41 +59,21 @@ extension DetailsViewController: DetailsViewControllerIntput {
     func show(_ hero: DefaultHeroesService.Response.Character,
               heroImage: UIImage) {
         customView.update(with: DetailsCustomViewModel(hero: hero, heroImg: heroImage))
-        //        customView.comicsViewModel?.add(hero.comics.items)
         tryToFetchComics(items: hero.comics.items)
     }
     
     func show(comicsData: [AnyPublisher<DefaultHeroesService.Response.ComicsData, Error>]) {
         var result = [DefaultHeroesService.Response.Comics]()
         Publishers.MergeMany(comicsData)
-//            .compactMap { $0 as? DefaultHeroesService.Response.ComicsData }
-//            .collect()
             .sink(receiveCompletion: { status in
                 if case let .failure(error) = status {
-                    print("HERE",error)
+                    print(error)
                 }
             }, receiveValue: { comicsData in
-                print("LOOK HERE: ",comicsData)
                 if let comics = comicsData.data.results.first {
-                    print("LOOK COMICS: ",comics)
                     result.append(comics)
                     self.customView.comicsViewModel?.add([comics])
                 }
             }).store(in: &disposalBag)
-//            .sink { comicsData in
-//
-//                if let comics = comicsData.data.results.first {
-//                    result.append(comics)
-//                }
-////              customView.comicsViewModel?.add(result)
-//
-//
-////                guard let episodesCount = self?.episodes.count else { return }
-////                let insertPosition = episodesCount - 1
-////                self?.tableView.insertRows(at: [[1, insertPosition]], with: .right)
-//            }
-        // wait for MergeMany to complete
-//        customView.comicsViewModel?.add(hero.comics.items)
-//        tryToFetchComics(items: hero.comics.items)
     }
 }

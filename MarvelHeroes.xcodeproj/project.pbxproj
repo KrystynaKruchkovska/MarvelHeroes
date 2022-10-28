@@ -27,6 +27,9 @@
 		E553DFA028F94F3A00C06683 /* ImageCacheWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E553DF9F28F94F3A00C06683 /* ImageCacheWorker.swift */; };
 		E553DFA228F973A900C06683 /* ImageServiceWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E553DFA128F973A900C06683 /* ImageServiceWorker.swift */; };
 		E553DFA528F97E1E00C06683 /* NavigationBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E553DFA428F97E1E00C06683 /* NavigationBar+Extension.swift */; };
+		E56061FB290BFC9F009954D2 /* ProvidableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56061FA290BFC9F009954D2 /* ProvidableProtocol.swift */; };
+		E56061FD290BFCD8009954D2 /* DefaultCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56061FC290BFCD8009954D2 /* DefaultCellLayout.swift */; };
+		E56061FF290BFD23009954D2 /* MervelDefaultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56061FE290BFD23009954D2 /* MervelDefaultCell.swift */; };
 		E5BB11042901C5B800C8C938 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB11032901C5B800C8C938 /* File.swift */; };
 		E5BB1108290681CE00C8C938 /* DetailsViewController .swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB1107290681CE00C8C938 /* DetailsViewController .swift */; };
 		E5BB110A2906826300C8C938 /* DetailsConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BB11092906826300C8C938 /* DetailsConfigurator.swift */; };
@@ -68,6 +71,9 @@
 		E553DF9F28F94F3A00C06683 /* ImageCacheWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheWorker.swift; sourceTree = "<group>"; };
 		E553DFA128F973A900C06683 /* ImageServiceWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageServiceWorker.swift; sourceTree = "<group>"; };
 		E553DFA428F97E1E00C06683 /* NavigationBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationBar+Extension.swift"; sourceTree = "<group>"; };
+		E56061FA290BFC9F009954D2 /* ProvidableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvidableProtocol.swift; sourceTree = "<group>"; };
+		E56061FC290BFCD8009954D2 /* DefaultCellLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCellLayout.swift; sourceTree = "<group>"; };
+		E56061FE290BFD23009954D2 /* MervelDefaultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MervelDefaultCell.swift; sourceTree = "<group>"; };
 		E5BB11032901C5B800C8C938 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		E5BB1107290681CE00C8C938 /* DetailsViewController .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DetailsViewController .swift"; sourceTree = "<group>"; };
 		E5BB11092906826300C8C938 /* DetailsConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsConfigurator.swift; sourceTree = "<group>"; };
@@ -142,6 +148,7 @@
 		E553DF9428F8123D00C06683 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				E56061F9290BFC7B009954D2 /* Cell */,
 				E5BB11152906D3FF00C8C938 /* DependencyProvider */,
 				E553DFA328F97E0B00C06683 /* Extensions */,
 				E553DF9528F8124800C06683 /* Binding.swift */,
@@ -159,6 +166,16 @@
 				E5D0A08D2901A3AF00623FBA /* String+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E56061F9290BFC7B009954D2 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				E56061FA290BFC9F009954D2 /* ProvidableProtocol.swift */,
+				E56061FC290BFCD8009954D2 /* DefaultCellLayout.swift */,
+				E56061FE290BFD23009954D2 /* MervelDefaultCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		E5BB11052906816B00C8C938 /* MainScene */ = {
@@ -327,10 +344,12 @@
 				E553DF8428F72F9B00C06683 /* MarvelHeroesEndpoint.swift in Sources */,
 				E553DF9328F802C300C06683 /* CollectionViewModel.swift in Sources */,
 				E553DF7D28F72F7700C06683 /* MarvelHeroesViewController.swift in Sources */,
+				E56061FD290BFCD8009954D2 /* DefaultCellLayout.swift in Sources */,
 				E5BB110A2906826300C8C938 /* DetailsConfigurator.swift in Sources */,
 				E5BB11172906D41600C8C938 /* DefaultDependencyProvider .swift in Sources */,
 				E5BB111B290961B500C8C938 /* ComicsCollectionViewCell.swift in Sources */,
 				E553DF8C28F72FAF00C06683 /* HeroesListWorker.swift in Sources */,
+				E56061FB290BFC9F009954D2 /* ProvidableProtocol.swift in Sources */,
 				E553DFA528F97E1E00C06683 /* NavigationBar+Extension.swift in Sources */,
 				E553DF8F28F72FB900C06683 /* SceneFactory.swift in Sources */,
 				E553DF9628F8124800C06683 /* Binding.swift in Sources */,
@@ -338,6 +357,7 @@
 				E5E22F8428F72D720088C2B6 /* AppDelegate.swift in Sources */,
 				E553DF8B28F72FAF00C06683 /* NetworkSession.swift in Sources */,
 				E553DF9E28F9466A00C06683 /* DownloadImageWorker.swift in Sources */,
+				E56061FF290BFD23009954D2 /* MervelDefaultCell.swift in Sources */,
 				E5D0A08E2901A3AF00623FBA /* String+Extension.swift in Sources */,
 				E553DF7F28F72F7700C06683 /* MarvelHeroesInteractor.swift in Sources */,
 				E5E22F8628F72D720088C2B6 /* SceneDelegate.swift in Sources */,
