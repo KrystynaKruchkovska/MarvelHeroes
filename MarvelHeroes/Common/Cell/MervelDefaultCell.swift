@@ -21,7 +21,6 @@ class MarvelDefaultCell: UICollectionViewCell {
         imageDownloader = ImageServiceWorker()
         super.init(frame: frame)
         
-        contentStackView.frame = self.bounds
         imageDownloader?.imageCacheWorker = ImageCacheWorker()
         imageDownloader?.downloadImageWorker = DownloadImageWorker()
         heroImageView.addSubview(progressIndicator)
@@ -39,6 +38,7 @@ class MarvelDefaultCell: UICollectionViewCell {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         heroImageView.image = nil
     }
     
@@ -47,6 +47,7 @@ class MarvelDefaultCell: UICollectionViewCell {
         stackView.axis = .vertical
         stackView.layer.cornerRadius = DefaultCellLayout.cornerRadius
         stackView.clipsToBounds = true
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     
@@ -60,7 +61,7 @@ class MarvelDefaultCell: UICollectionViewCell {
     
     private var progressIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
-        indicator.color = .purple
+        indicator.color = .white
         indicator.translatesAutoresizingMaskIntoConstraints = false
         return indicator
     }()
@@ -77,10 +78,17 @@ class MarvelDefaultCell: UICollectionViewCell {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
+            
+            contentStackView.topAnchor.constraint(equalTo: self.topAnchor),
+            contentStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            contentStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            contentStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            
             heroImageView.topAnchor.constraint(equalTo: contentStackView.topAnchor),
             heroImageView.leadingAnchor.constraint(equalTo: contentStackView.leadingAnchor),
             heroImageView.trailingAnchor.constraint(equalTo: contentStackView.trailingAnchor),
             heroImageView.heightAnchor.constraint(equalTo: contentStackView.heightAnchor, multiplier: 0.8),
+            
             progressIndicator.centerXAnchor.constraint(equalTo: heroImageView.centerXAnchor),
             progressIndicator.centerYAnchor.constraint(equalTo: heroImageView.centerYAnchor)
         ])

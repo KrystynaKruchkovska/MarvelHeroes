@@ -183,65 +183,45 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "42FB640D-BF7B-4487-B5F1-D17C90841EBE"
+            uuid = "A8961C2C-CF0A-4999-98C0-833691ED36C9"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MarvelHeroes/Scenes/DetailsScene/DetailsViewController .swift"
+            filePath = "MarvelHeroes/Scenes/MainScene/HeroesListWorker.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "show(comicsData:)"
-            landmarkType = "7">
+            startingLineNumber = "67"
+            endingLineNumber = "67">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.SymbolicBreakpoint">
+         <BreakpointContent
+            uuid = "CBBE6BEC-8B69-4929-8DFB-7E2F7D3C5935"
+            shouldBeEnabled = "Yes"
+            nameForDebugger = "UICollectionViewFlowLayoutBreakForInvalidSizes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            symbolName = ""
+            moduleName = "">
+            <Locations>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "43CCD5A4-F550-478B-9A7C-70DD40ED6F8C"
+            uuid = "7B1751A9-F9B6-4AF3-A9BD-6C3C1F6C7CBE"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MarvelHeroes/Scenes/DetailsScene/DetailsViewController .swift"
+            filePath = "MarvelHeroes/Common/Cell/MervelDefaultCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
-            landmarkName = "show(comicsData:)"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "prepareForReuse()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "43CCD5A4-F550-478B-9A7C-70DD40ED6F8C - 7c275c457967e1ed"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Combine.Subscribers.Completion&lt;Swift.Error&gt;) -&gt; () in MarvelHeroes.DetailsViewController.show(comicsData: Swift.Array&lt;Combine.AnyPublisher&lt;MarvelHeroes.DefaultHeroesService.Response.ComicsData, Swift.Error&gt;&gt;) -&gt; ()"
-                  moduleName = "MarvelHeroes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/pawel/Documents/Krysia/juniorChallenges/MarvelHeroes/MarvelHeroes/Scenes/DetailsScene/DetailsViewController%20.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "73"
-                  endingLineNumber = "73"
-                  offsetFromSymbolStart = "48">
-               </Location>
-               <Location
-                  uuid = "43CCD5A4-F550-478B-9A7C-70DD40ED6F8C - 7c275c457967e1ed"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Combine.Subscribers.Completion&lt;Swift.Error&gt;) -&gt; () in MarvelHeroes.DetailsViewController.show(comicsData: Swift.Array&lt;Combine.AnyPublisher&lt;MarvelHeroes.DefaultHeroesService.Response.ComicsData, Swift.Error&gt;&gt;) -&gt; ()"
-                  moduleName = "MarvelHeroes"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/pawel/Documents/Krysia/juniorChallenges/MarvelHeroes/MarvelHeroes/Scenes/DetailsScene/DetailsViewController%20.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "73"
-                  endingLineNumber = "73"
-                  offsetFromSymbolStart = "76">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

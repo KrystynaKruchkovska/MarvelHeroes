@@ -11,6 +11,7 @@ extension UINavigationBar {
 
     func setAppStyle() {
         barStyle = .black
+        tintColor = UIColor.white
         titleTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.white
         ]

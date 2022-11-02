@@ -43,6 +43,24 @@ final class DetailsViewController : UIViewController {
         customView.comicsCollectionView.dataSource = collectionViewModel.makeDataSource()
         customView.comicsViewModel = collectionViewModel
     }
+    
+    override func viewWillLayoutSubviews() {
+         // Invalidate Layer (triggers "prepareLayout" in layout)
+        self.customView.comicsCollectionView.collectionViewLayout.invalidateLayout()
+
+
+         // Trigger cells to redraw themselves (to get new widths etc)
+        for cell in self.customView.comicsCollectionView.visibleCells {
+                cell.setNeedsDisplay()
+         }
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animate { context in
+//            self.customView.comicsCollectionView.collectionViewLayout.invalidateLayout()
+            self.customView.updateStackView(with: size)
+        }
+    }
 }
 
 extension DetailsViewController: DetailsViewControllerOutput {
